@@ -8,11 +8,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# 👇 Fix permissions for Jest
-RUN chmod +x ./node_modules/.bin/jest
-
 # Copy app files
 COPY . .
+
+# 👇 Fix permissions for Jest
+RUN chmod +x ./node_modules/.bin/jest
 
 # Expose port
 EXPOSE 3000
