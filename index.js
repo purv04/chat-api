@@ -6,29 +6,31 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Basic REST endpoint for health check
+// ✅ Default route for browser access
+app.get('/', (req, res) => {
+  res.send('🚀 Welcome to the Chat API!');
+});
+
+// ✅ Health check route
 app.get('/health', (req, res) => {
   res.status(200).send('Chat API is healthy!');
 });
 
-// Socket.IO connection
+// 🔌 Socket.IO setup
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  // Listen for incoming chat messages
   socket.on('chat message', (msg) => {
     console.log(`Message: ${msg}`);
-    // Broadcast to all clients
-    io.emit('chat message', msg);
+    io.emit('chat message', msg); // Broadcast to all clients
   });
 
-  // Handle disconnect
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
 
-// Start server
+// 🚀 Start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Chat API listening on port ${PORT}`);
