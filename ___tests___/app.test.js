@@ -1,7 +1,9 @@
-// __tests__/app.test.js
-
 const request = require('supertest');
-const app = require('../index'); // assuming index.js exports your app instance
+const { app, server } = require('../index'); // 👈 import both app and server
+
+afterAll((done) => {
+  server.close(done); // 👈 close the server to end the test process
+});
 
 describe('GET /health', () => {
   it('should return a healthy message', async () => {
