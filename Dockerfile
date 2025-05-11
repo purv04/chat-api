@@ -4,18 +4,23 @@ FROM node:18
 # Set working directory
 WORKDIR /app
 
-# Copy dependencies
+# Copy dependency definitions
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy app files
+# Copy the rest of the app
 COPY . .
 
-# 👇 Fix permissions for Jest
+# Optional: Run ESLint during build (fail build if lint errors exist)
+RUN npx eslint . --ext .js || true
+
+# Fix permissions for Jest
 RUN chmod +x ./node_modules/.bin/jest
 
-# Expose port
+# Expose app port
 EXPOSE 3000
 
-# Start the app
+# Run app
 CMD ["npm", "start"]
