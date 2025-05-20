@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 // 🚀 Start server
 const PORT = process.env.PORT || 3000;
 const serverInstance = server.listen(PORT, () => {
-  console.log(`Chat API listening on port ${PORT}`);
+  console.log(`Chat API listening on port ${PORT}\nHello Purvam!`);
 });
 
 module.exports = { app, server: serverInstance };
